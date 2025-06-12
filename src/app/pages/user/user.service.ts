@@ -7,10 +7,19 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 })
 export class UserService {
 
+  baseUrl = 'http://localhost:8080'
   constructor(private http: HttpClient) { }
 
    
   getUsers() {
-    return this.http.get('http://localhost:8080/api/allUsers')
+    return this.http.get(`${this.baseUrl}/api/allUsers`)
+  }
+
+  updateUser(data: any) {
+    return this.http.put(`${this.baseUrl}/api/user/${data.id}`, data)
+  }
+
+  deleteUser(id: number) {
+    return this.http.delete(`${this.baseUrl}/api/user/${id}`)
   }
 }

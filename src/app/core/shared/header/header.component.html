@@ -7,9 +7,10 @@
       </div>
 
       <div class="nav-bar">
-        <li *ngIf="isLoggedIn"><a routerLink="/users">User</a></li>
-        <li *ngIf="isLoggedIn"><button (click)="logout()">Logout</button></li>
-        <ng-container *ngIf="!isLoggedIn">
+        <li *ngIf="service.isLoggedIn"><a>Welcome: {{ service.getLoggedUserName() }}</a></li>
+        <li *ngIf="service.isLoggedIn"><button (click)="logout()">Logout</button></li>
+        <ng-container *ngIf="!service.isLoggedIn">
+          <li><a routerLink="/voter-login">Voter login</a></li>
           <li><a routerLink="/login">Login</a></li>
           <li><a routerLink="/signup">Signup</a></li>
 

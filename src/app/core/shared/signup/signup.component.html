@@ -1,44 +1,27 @@
-<div class="card">
-    <form [formGroup]="userForm" (ngSubmit)="signup()">
-        <div class="">
-            <div class="title"><label for="">Signup</label></div>
+<div class="d-flex justify-content-center mt-5">
+  <div class="card shadow p-4" style="width: auto; max-width: 600px;">
+    <form [formGroup]="userForm" (ngSubmit)="signup()" class="w-100">
+      
+      <!-- Header -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Sign Up</h5>
+      </div>
 
-            <div class="">
-                <div class="">
-                    <label for="">First Name</label>
-                </div>
-                <input type="text" formControlName="firstname">
-            </div>
+      <!-- Body -->
+      <div class="row gx-3 gy-2">
+        <ng-container *ngFor="let col of column">
+          <div class="col-12">
+            <label [for]="col.name" class="form-label">{{ col.label }}</label>
+            <input type="text" [id]="col.name" [formControlName]="col.name" class="form-control" />
+          </div>
+        </ng-container>
+      </div>
 
+      <!-- Footer -->
+      <div class="mt-4 text-start">
+        <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Sign Up</button>
+      </div>
 
-            <div class="">
-                <div class="">
-                    <label for="">Last Name</label>
-                </div>
-                <input type="text" formControlName="lastname">
-            </div>
-
-
-            <div class="">
-                <div class="">
-
-                    <label for="">Username</label>
-                </div>
-                <input type="text" formControlName="username">
-            </div>
-
-
-            <div class="">
-                <div class="">
-                    <label for="">password</label>
-                </div>
-                <input type="password" formControlName="password">
-            </div>
-        </div>
-
-
-        <div class="button">
-            <button class="button">Sign up</button>
-        </div>
     </form>
+  </div>
 </div>

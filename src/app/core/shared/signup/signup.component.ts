@@ -10,11 +10,41 @@ import { AppServiceService } from 'src/app/app-service.service';
 })
 export class SignupComponent implements OnInit {
 
+  column = [
+    {
+      name: 'firstname',
+      label: 'Firstname',
+      control: {
+        type: 'text'
+      }
+    },
+    {
+      name: 'lastname',
+      label: 'Lastname',
+      control: {
+        type: 'text'
+      }
+    },
+
+    {
+      name: 'username',
+      label: 'Username',
+      control: {
+        type: 'text'
+      }
+    }, {
+      name: 'password',
+      label: 'Password',
+      control: {
+        type: 'text'
+      }
+    }
+  ];
   userForm: FormGroup;
   constructor(private appService: AppServiceService,
     private fb: FormBuilder,
     private router: Router
-  ) { 
+  ) {
     this.userForm = this.fb.group({
       username: [],
       password: [],
@@ -22,6 +52,7 @@ export class SignupComponent implements OnInit {
       lastname: []
     })
   }
+
 
   ngOnInit(): void {
   }

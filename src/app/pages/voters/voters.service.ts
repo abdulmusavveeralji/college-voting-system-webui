@@ -21,7 +21,7 @@ export class VotersService {
       return this.http.put(`${this.baseUrl}/api/voters/${data.id}`, data)
     }
   
-    deleteCandidates(data: any) {
-      return this.http.delete(`${this.baseUrl}/api/voters/${data.id}`)
+    deleteCandidates(id: number) {
+      return this.http.delete(`${this.baseUrl}/api/voters/${id}`)
     }
 }

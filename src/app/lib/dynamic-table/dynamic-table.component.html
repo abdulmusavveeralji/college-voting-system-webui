@@ -1,26 +1,103 @@
-<div class="table-responsive container mt-4">
-    <div class=" d-flex justify-content-between align-items-center">
-        <h2>Voters</h2>
-        <button class="btn btn-primary btn-sm">Add</button>
+<div class="card">
+    <div class="table-responsive container mt-4">
+        <div class=" d-flex justify-content-between align-items-center">
+            <h2>{{ title }}</h2>
+            <button *ngIf="!hideAddButton" type="button" class="btn btn-primary" data-bs-target="#exampleModal"
+                data-bs-toggle="modal" (click)="openModal()">Add</button>
+        </div>
+        <table class="table table-bordered table-group-divider">
+            <thead class="table-light">
+                <tr>
+                    <th *ngFor="let col of column">{{ col.label }}</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr *ngFor="let d of data">
+                    <td *ngFor="let row of column">{{ getRow(d, row) }}</td>
+
+                    <td>
+                        <div class="">
+                            <button class="btn btn-success me-1" type="button" (click)="editForm(d)"
+                                data-bs-target="#exampleModal" data-bs-toggle="modal">Edit</button>
+                            <button class="btn btn-danger" (click)="deleteRow(d.id)" data-bs-toggle="modal"
+                                data-bs-target="#deleteConfirmationModal">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <table class="table table-bordered table-group-divider">
-        <thead class="table-light">
-            <tr>
-                <th *ngFor="let col of column">{{ col.label }}</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            <tr *ngFor="let d of data">
-                <td *ngFor="let row of column">{{ d[row.name] }}</td>
-            
-                <td>
-                    <div class="">
-                        <button class="btn btn-success me-1" (click)="editForm(d)">Edit</button>
-                        <button class="btn btn-danger" (click)="deleteRow(d.id)">Delete</button>
+</div>
+
+<!-- <app-dynamic-form *ngIf="showModal" [columns]="column" [data]="editRow"></app-dynamic-form> -->
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+    <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Use modal-lg for wider modal -->
+        <div class="modal-content">
+            <form [formGroup]="userForm" (ngSubmit)="saveData()">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Candidate</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body px-4"> <!-- Add padding inside modal -->
+                    <div class="row g-3">
+
+                        <ng-container *ngFor="let col of column">
+                            <div class="col-md-6" [ngSwitch]="col.control.type" *ngIf="!col.hidden">
+
+                                <!-- Label for all types -->
+                                <label [for]="col.name" class="form-label">{{ col.label }}</label>
+
+                                <!-- Text Input -->
+                                <input *ngSwitchDefault type="text" [id]="col.name" [formControlName]="col.name"
+                                    class="form-control">
+
+                                <!-- Select Dropdown -->
+                                <select *ngSwitchCase="'select'" class="form-select" [formControlName]="col.name"
+                                    [id]="col.name">
+                                    <option disabled selected>{{ col.control.placeholder }}</option>
+                                    <option *ngFor="let option of col.control.selections()" [ngValue]="option" >
+                                        {{ option.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </ng-container>
+
                     </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                </div>
+
+                <div class="modal-footer px-4 pb-3">
+                    <button type="button" class="btn btn-secondary" (click)="closeModal()"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteConfirmationModalLabel">Confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you really want to delete this record?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" (click)="deleteRecord();">Delete</button>
+            </div>
+        </div>
+    </div>
 </div>

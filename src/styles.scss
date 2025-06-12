@@ -13,38 +13,3 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
-
-.content-wapper {
-    background-color: #ffffff80;
-    width: 78%;
-    margin: 10px;
-    border-radius: 10px;
-
-}
-
-.modal {
-    position: fixed;
-    top: 15%;
-    left: 25%;
-    width: auto;
-    height: auto;
-
-    background: #ffffff;
-    border-radius: 13px;
-    border: none;
-    box-shadow: 0px 0px 11px -5px;
-}
-
-.modal-content {
-    background: white;
-    padding: 20px;
-    width: 300px;
-    margin: 100px auto;
-    border-radius: 5px;
-    position: relative;
-}
-
-
-.button {
-    padding: .5rem;
-}

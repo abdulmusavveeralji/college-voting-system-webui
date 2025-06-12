@@ -16,6 +16,9 @@ import { SignupComponent } from './core/shared/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DynamicTableComponent } from './lib/dynamic-table/dynamic-table.component';
 import { DynamicFormComponent } from './lib/dynamic-form/dynamic-form.component';
+import { CategoryComponent } from './pages/category/category.component';
+import { VoterLoginComponent } from './core/shared/voter-login/voter-login.component';
+import { VotingComponent } from './pages/voting/voting.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { DynamicFormComponent } from './lib/dynamic-form/dynamic-form.component'
     LoginComponent,
     SignupComponent,
     DynamicTableComponent,
-    DynamicFormComponent
+    DynamicFormComponent,
+    CategoryComponent,
+    VoterLoginComponent,
+    VotingComponent
   ],
   imports: [
     BrowserModule,

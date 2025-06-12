@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AppServiceService } from 'src/app/app-service.service';
 
 @Component({
@@ -9,22 +9,14 @@ import { AppServiceService } from 'src/app/app-service.service';
 export class HeaderComponent implements OnInit {
 
   isLoggedIn = true;
-  constructor(private service: AppServiceService) { }
+  constructor(public service: AppServiceService) { }
 
   ngOnInit(): void {
-    this.checkSession();
-
-    this.service.refreshSession$
-    .subscribe(() => this.checkSession())
-  }
-
-  checkSession() {
-    this.isLoggedIn = this.service.isLoggedIn;
-    console.log('this.service.getSessionStorage', this.service.getSessionStorage)
   }
 
   logout() {
     this.service.logout();
   }
+  
 
 }

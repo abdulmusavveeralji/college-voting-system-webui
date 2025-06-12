@@ -10,6 +10,21 @@ import { AppServiceService } from 'src/app/app-service.service';
 })
 export class LoginComponent implements OnInit {
 
+    column = [
+      {
+        name: 'username',
+        label: 'Username',
+        control: {
+          type: 'text'
+        }
+      },{
+        name: 'password',
+        label: 'Password',
+        control: {
+          type: 'text'
+        }
+      }
+    ];
   userForm: FormGroup;
   constructor(
     private appService: AppServiceService,
@@ -28,8 +43,12 @@ export class LoginComponent implements OnInit {
     this.appService.login(this.userForm.value)
       .subscribe((response) => {
         console.log('response', response);
-        this.appService.setSessionStorage(this.userForm.value);
-        this.router.navigate(['/dashboard']);
+
+        if (response) {
+          this.appService.setSessionStorage(this.userForm.value);
+          this.router.navigate(['/dashboard']);
+        }
+        
       }, (error) => console.log('invalid user'));
   }
 

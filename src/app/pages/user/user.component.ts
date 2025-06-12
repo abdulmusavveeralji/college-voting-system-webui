@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -36,6 +37,13 @@ export class UserComponent implements OnInit {
     ]
 
 
+    apiMethods = {
+        get: () => this.getAllUsers(),
+        put: (data: FormGroup) => this.updateCandidate(data),
+        delete: (id: number, cb: ()=>{}) => this.deleteCandidate(id, cb)
+      }
+
+
   showModel = false;
   data: any;
   constructor(private userService: UserService) { }
@@ -52,20 +60,12 @@ export class UserComponent implements OnInit {
     })
   }
 
-  openModel() {
-    this.showModel = true;
+  updateCandidate(data: FormGroup) {
+
   }
 
-  closeModel() {
-    this.showModel = false;
-  }
-
-  deleteCandidate(id: number) {
+  deleteCandidate(id: number, cb: () => {}) {
     
   }
-
-  editCandidate(user: {}) {
-  }
-
 
 }

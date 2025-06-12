@@ -1,72 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CandidateService } from '../candidate/candidate.service';
-import { VotersService } from './voters.service';
+import { CategoryService } from './category.service';
 
 @Component({
-  selector: 'app-voters',
-  templateUrl: './voters.component.html',
-  styleUrls: ['./voters.component.scss']
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.scss']
 })
-export class VotersComponent implements OnInit {
+export class CategoryComponent implements OnInit {
 
    column = [
       {
-        name: 'idNumber',
-        label: 'Candidate ID',
+        name: 'name',
+        label: 'Category Name',
         control: {
           type: 'text'
         }
-      },{
-        name: 'password',
-        label: 'Password',
-        hidden: true,
-        control: {
-          type: 'text'
-        }
-      },
-      {
-        name: 'firstname',
-        label: 'FirstName',
-        control: {
-          type: 'text'
-        }
-      },
-      {
-        name: 'lastname',
-        label: 'Lastname',
-        control: {
-          type: 'text'
-        }
-      },
-      {
-        name: 'year',
-        label: 'Year',
-        control: {
-          type: 'text'
-        }
-      },
-      {
-        name: 'status',
-        label: 'Status',
-        hidden: true,
-        control: {
-          type: 'text'
-        }
-      },
+      }
     ]
-  
     data: any;
     showModel = false;
-
+  
     apiMethods = {
       get: () => this.getAllUsers(),
       post: (data: FormGroup) => this.addCandidate(data),
       put: (data: FormGroup) => this.updateCandidate(data),
       delete: (id: number, cb: ()=>{}) => this.deleteCandidate(id, cb)
     }
-    constructor(private service: VotersService, private fb: FormBuilder
-    ) { }
+    constructor(private service: CategoryService, private fb: FormBuilder
+    ) {
+      
+    }
     ngOnInit(): void {
       this.getAllUsers();
     }
@@ -83,6 +48,8 @@ export class VotersComponent implements OnInit {
           this.getAllUsers();
         }, (error) => console.log('invalid user'));
     }
+  
+  
     updateCandidate(data: FormGroup) {
       this.service.updateCandidates(data.value)
         .subscribe((response) => {
@@ -90,8 +57,7 @@ export class VotersComponent implements OnInit {
           this.getAllUsers();
         }, (error) => console.log('invalid user'));
     }
-    
-    deleteCandidate(id: number, cb:() => {}) {
+    deleteCandidate(id: number, cb: ()=> {}) {
       this.service.deleteCandidates(id)
         .subscribe((response) => {
           console.log('response', response);

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CandidateService } from './candidate.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-candidate',
@@ -8,99 +9,110 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./candidate.component.scss']
 })
 export class CandidateComponent implements OnInit {
+  
 
   column = [
+
+    {
+      name: 'firstname',
+      label: 'FirstName',
+      control: {
+        type: 'text'
+      }
+    },
+    {
+      name: 'lastname',
+      label: 'Lastname',
+      control: {
+        type: 'text'
+      }
+    },
+    {
+      name: 'gender',
+      label: 'Gender',
+      control: {
+        type: 'text'
+      }
+    },
+    {
+      name: 'position',
+      label: 'Position',
+      control: {
+        type: 'text'
+      }
+    },
+    {
+      name: 'year',
+      label: 'Year',
+      control: {
+        type: 'text'
+      }
+    },
     
-      {
-        name: 'firstname',
-        label: 'FirstName',
-        control: {
-          type: 'text'
-        }
-      },
-      {
-        name: 'lastname',
-        label: 'Lastname',
-        control: {
-          type: 'text'
-        }
-      },
-      {
-        name: 'gender',
-        label: 'Gender',
-        control: {
-          type: 'text'
-        }
-      },
-      {
-        name: 'position',
-        label: 'Position',
-        control: {
-          type: 'text'
-        }
-      },
-      {
-        name: 'year',
-        label: 'Year',
-        control: {
-          type: 'text'
-        }
-      },
-      {
-        name: 'status',
-        label: 'Status',
-        control: {
-          type: 'text'
-        }
-      },
-    ]
+    {
+      name: 'category',
+      label: 'Category',
+      expectedObject: true,
+      optionKey: 'name',
+      control: {
+        type: 'select',
+        selections: () => this.categoryList(),
+        placeholder: 'Select Category'
+      }
+    },
+  ]
   data: any;
-  userForm: FormGroup;
   showModel = false;
+
+  category: any = [];
+
+  apiMethods = {
+    get: () => this.getAllUsers(),
+    post: (data: FormGroup) => this.addCandidate(data),
+    put: (data: FormGroup) => this.updateCandidate(data),
+    delete: (id: number, cb: ()=>{}) => this.deleteCandidate(id, cb)
+  }
   constructor(private service: CandidateService, private fb: FormBuilder
   ) {
-    this.userForm = this.fb.group({
-      id: [],
-      gender: [],
-      position: [],
-      year: [],
-      firstname: [],
-      lastname: []
-    })
+    
   }
   ngOnInit(): void {
     this.getAllUsers();
   }
 
   getAllUsers() {
-    this.service.getCandidates().subscribe(data => {
-      this.data = data
+    forkJoin({candidate: this.service.getCandidates(), category: this.service.getAllCategories()})
+    .subscribe(({candidate, category}) => {
+      this.data = candidate;
+      this.category = category;
     })
   }
-  addCandidate() {
-    this.service.addCandidates(this.userForm.value)
+  addCandidate(data: FormGroup) {
+    this.service.addCandidates(data.value)
       .subscribe((response) => {
         console.log('response', response);
         this.getAllUsers();
       }, (error) => console.log('invalid user'));
   }
-  deleteCandidate(id: number) {
+
+
+  updateCandidate(data: FormGroup) {
+    this.service.updateCandidates(data.value)
+      .subscribe((response) => {
+        console.log('response', response);
+        this.getAllUsers();
+      }, (error) => console.log('invalid user'));
+  }
+  deleteCandidate(id: number, cb: ()=> {}) {
     this.service.deleteCandidates(id)
       .subscribe((response) => {
         console.log('response', response);
         this.getAllUsers();
+        cb && cb();
       }, (error) => console.log('invalid user'));
   }
 
-  editCandidate(user: {}) {
-    this.userForm.patchValue({...user});
-  }
-
-  openModel() {
-    this.showModel = true;
-  }
-  
-  closeModel() {
-    this.showModel = false;
+  categoryList() {
+    return this.category;
   }
 }

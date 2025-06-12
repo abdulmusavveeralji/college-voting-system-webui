@@ -8,19 +8,27 @@ import { Subject } from 'rxjs';
 })
 export class AppServiceService {
 
+
   refreshSession$ = new Subject();
 
   baseUrl = 'http://localhost:8080'
   constructor(private http: HttpClient, private router: Router) { }
 
 
-  setSessionStorage(userData: any) {
-    sessionStorage.setItem("username", userData.username);
-    sessionStorage.setItem("isLoggedIn", userData ? 'true' : 'false');
+  setSessionStorage(userData: any, isVoter = false) {
+    sessionStorage.clear();
+    if (isVoter) {
+      sessionStorage.setItem("username", userData.idNumber);
+      sessionStorage.setItem("isVoter", userData ? 'true' : 'false');
+    } else {
+      sessionStorage.setItem("username", userData.username);
+      sessionStorage.setItem("isLoggedIn", userData ? 'true' : 'false');
+    }
+
     this.refreshSession$.next(true);
   }
 
-  getSessionStorage() {
+  getLoggedUserName() {
     return sessionStorage.getItem("username");
   }
 
@@ -33,11 +41,14 @@ export class AppServiceService {
   }
 
   login(data: any) {
-    return this.http.post(`${this.baseUrl}/api/validateUser`, data, {withCredentials: true})
+    return this.http.post(`${this.baseUrl}/api/validateUser`, data, { withCredentials: true })
+  }
+  voterLogin(data: any) {
+    return this.http.post(`${this.baseUrl}/api/voters/validateUser`, data, { withCredentials: true })
   }
 
   registerUser(data: any) {
-    return this.http.post(`${this.baseUrl}/api/signup`, data, {withCredentials: true})
+    return this.http.post(`${this.baseUrl}/api/signup`, data, { withCredentials: true })
   }
 
   logout() {

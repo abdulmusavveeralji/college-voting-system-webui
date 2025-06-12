@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppServiceService } from 'src/app/app-service.service';
 
 @Component({
   selector: 'app-layout',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  isLoggedIn = true;
+  constructor(private service: AppServiceService) { }
 
   ngOnInit(): void {
+    this.checkSession();
+
+    this.service.refreshSession$
+    .subscribe(() => this.checkSession())
   }
 
+  checkSession() {
+    this.isLoggedIn = this.service.isLoggedIn;
+  }
 }
