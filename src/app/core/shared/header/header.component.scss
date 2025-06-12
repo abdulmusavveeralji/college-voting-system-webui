@@ -1,0 +1,47 @@
+.header {
+  background-color: blue;
+  padding: 0.5rem 2rem; // Provides spacing around the navigation content
+
+  nav {
+    ul, .nav-bar {
+      display: flex;        // Enables flexbox for horizontal layout
+      list-style: none;     // Removes default list markers (bullets/numbers)
+      margin: 0;            // Resets default margin
+      padding: 0;           // Resets default padding
+      gap: 2rem;            // Adds space between list items
+      justify-content: space-between; // Distributes items evenly with space between them
+
+      align-items: center;
+      li {
+        button {
+          border: none;
+          background-color: transparent;
+          color: #ffffff;
+        }
+        // We've already set `list-style: none;` on the `ul`, so it's not strictly
+        // needed here, but doesn't hurt.
+        // The color for the link text will be set on the `a` tag.
+        list-style: none;
+
+        a {
+          color: white;             // Apply color to the link text
+          text-decoration: none;    // Remove the default underline from links
+          padding: 0.5rem 0;        // Optional: add some padding around the link text for clickability
+          display: block;           // Make the entire link padding area clickable
+
+          // Nesting hover state for the link
+          &:hover { // '&' refers to the parent selector (the 'a' tag)
+            color: lightgray;       // Lighter color on hover for visual feedback
+            // You could also add background-color or other effects here
+          }
+
+          // Nesting active routerLink state (Angular specific)
+          &.active { // Styles for the currently active route link
+            font-weight: bold;      // Make the active link bold
+            border-bottom: 2px solid white; // Add an underline for active state
+          }
+        }
+      }
+    }
+  }
+}

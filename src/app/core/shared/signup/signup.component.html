@@ -1,0 +1,44 @@
+<div class="card">
+    <form [formGroup]="userForm" (ngSubmit)="signup()">
+        <div class="">
+            <div class="title"><label for="">Signup</label></div>
+
+            <div class="">
+                <div class="">
+                    <label for="">First Name</label>
+                </div>
+                <input type="text" formControlName="firstname">
+            </div>
+
+
+            <div class="">
+                <div class="">
+                    <label for="">Last Name</label>
+                </div>
+                <input type="text" formControlName="lastname">
+            </div>
+
+
+            <div class="">
+                <div class="">
+
+                    <label for="">Username</label>
+                </div>
+                <input type="text" formControlName="username">
+            </div>
+
+
+            <div class="">
+                <div class="">
+                    <label for="">password</label>
+                </div>
+                <input type="password" formControlName="password">
+            </div>
+        </div>
+
+
+        <div class="button">
+            <button class="button">Sign up</button>
+        </div>
+    </form>
+</div>

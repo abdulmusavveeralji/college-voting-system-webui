@@ -1,0 +1,85 @@
+<div class=".content-wapper">
+    <table class="table">
+        <caption>
+            <div class="flex justify-content-between">
+                <h1>Candidates</h1>
+                <button class="btn btn-success" (click)="openModel()">Add</button>
+            </div>
+        </caption>
+        <thead>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Gender</th>
+            <th>Position</th>
+            <th>Year</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of data">
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.gender }}</td>
+                <td>{{ user.position }}</td>
+                <td>{{ user.year }}</td>
+                <td>
+                    <div class="">
+                        <button class="btn btn-success" (click)="editCandidate(user)">Edit</button>
+                        <button class="btn btn-danger" (click)="deleteCandidate(user.id)">Delete</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="card modal" *ngIf="showModel" aria-modal="true">
+    <form [formGroup]="userForm" (ngSubmit)="addCandidate()">
+        <div class="">
+            <div class="title"><label for="">Candidate</label></div>
+
+            <div class="">
+                <div class="">
+                    <label for="">First Name</label>
+                </div>
+                <input type="text" formControlName="firstname">
+            </div>
+
+
+            <div class="">
+                <div class="">
+                    <label for="">Last Name</label>
+                </div>
+                <input type="text" formControlName="lastname">
+            </div>
+
+
+            <div class="">
+                <div class="">
+
+                    <label for="">Gender</label>
+                </div>
+                <input type="text" formControlName="gender">
+            </div>
+
+
+            <div class="">
+                <div class="">
+                    <label for="">Position</label>
+                </div>
+                <input type="text" formControlName="position">
+            </div>
+
+            <div class="">
+                <div class="">
+                    <label for="">Year</label>
+                </div>
+                <input type="text" formControlName="year">
+            </div>
+            <div>
+                <button class="btn btn-danger" (click)="closeModel()">Cancel</button>
+                <button class="btn btn-success" type="submit">Add</button>
+            </div>
+        </div>
+    </form>
+</div>

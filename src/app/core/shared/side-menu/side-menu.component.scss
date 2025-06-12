@@ -1,0 +1,41 @@
+.app-sidebar {
+  background-color: rgb(234, 234, 234);
+  display: flex;
+  flex-direction: column;
+  position: absolute; // Be careful with 'position: absolute;' for overall layout.
+                     
+  width: 20%;
+  height: 100%; // Make sure the parent container (e.g., body, app-root) also has a defined height.
+
+  // Nesting styles for elements inside .side-menu
+  nav {
+    ul {
+      list-style: none; // Remove bullets/numbers from the ul
+      margin: 0;        // Remove default outer spacing
+      padding: 0;       // Remove default inner spacing/indentation
+
+      li {
+        a {
+          color: black;            // Apply color to the link text
+          text-decoration: none; // Remove default underline
+          display: block;
+          padding: 1rem;        // Make the entire li area clickable
+
+          // Nesting hover state for the link
+          &:hover { // '&' refers to the parent selector (the 'a' tag in this case)
+            color: darkred;          // Darker red on hover
+            background-color: #e0e0e0; // Light grey background on hover
+            border-radius: 4px;      // Slightly rounded corners on hover
+          }
+
+          // Nesting active routerLink state (Angular specific)
+          &.active { // Styles when the routerLink is active
+            font-weight: bold;
+            color: blue; // Or some other distinct color for active links
+            background-color: #d0d0d0;
+          }
+        }
+      }
+    }
+  }
+}
