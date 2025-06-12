@@ -10,11 +10,38 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 })
 export class UserComponent implements OnInit {
 
+  column = [
+      {
+        name: 'firstname',
+        label: 'Firstname',
+        control: {
+          type: 'text'
+        }
+      },
+      {
+        name: 'lastname',
+        label: 'Lastname',
+        control: {
+          type: 'text'
+        }
+      }
+      ,
+      {
+        name: 'username',
+        label: 'username',
+        control: {
+          type: 'text'
+        }
+      }
+    ]
+
+
+  showModel = false;
   data: any;
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    
+
 
     this.getAllUsers();
   }
@@ -25,6 +52,20 @@ export class UserComponent implements OnInit {
     })
   }
 
- 
+  openModel() {
+    this.showModel = true;
+  }
+
+  closeModel() {
+    this.showModel = false;
+  }
+
+  deleteCandidate(id: number) {
+    
+  }
+
+  editCandidate(user: {}) {
+  }
+
 
 }

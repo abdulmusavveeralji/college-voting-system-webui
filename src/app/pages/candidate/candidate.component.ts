@@ -9,6 +9,51 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class CandidateComponent implements OnInit {
 
+  column = [
+    
+      {
+        name: 'firstname',
+        label: 'FirstName',
+        control: {
+          type: 'text'
+        }
+      },
+      {
+        name: 'lastname',
+        label: 'Lastname',
+        control: {
+          type: 'text'
+        }
+      },
+      {
+        name: 'gender',
+        label: 'Gender',
+        control: {
+          type: 'text'
+        }
+      },
+      {
+        name: 'position',
+        label: 'Position',
+        control: {
+          type: 'text'
+        }
+      },
+      {
+        name: 'year',
+        label: 'Year',
+        control: {
+          type: 'text'
+        }
+      },
+      {
+        name: 'status',
+        label: 'Status',
+        control: {
+          type: 'text'
+        }
+      },
+    ]
   data: any;
   userForm: FormGroup;
   showModel = false;

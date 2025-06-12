@@ -1,36 +1,4 @@
-<div class=".content-wapper">
-    <table class="table">
-        <caption>
-            <div class="flex justify-content-between">
-                <h1>Candidates</h1>
-                <button class="btn btn-success" (click)="openModel()">Add</button>
-            </div>
-        </caption>
-        <thead>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Gender</th>
-            <th>Position</th>
-            <th>Year</th>
-            <th>Action</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of data">
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.gender }}</td>
-                <td>{{ user.position }}</td>
-                <td>{{ user.year }}</td>
-                <td>
-                    <div class="">
-                        <button class="btn btn-success" (click)="editCandidate(user)">Edit</button>
-                        <button class="btn btn-danger" (click)="deleteCandidate(user.id)">Delete</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<app-dynamic-table [column]="column" [data]="data"></app-dynamic-table>
 
 
 <div class="card modal" *ngIf="showModel" aria-modal="true">

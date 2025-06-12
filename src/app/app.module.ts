@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './core/shared/login/login.component';
 import { SignupComponent } from './core/shared/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DynamicTableComponent } from './lib/dynamic-table/dynamic-table.component';
+import { DynamicFormComponent } from './lib/dynamic-form/dynamic-form.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     LayoutComponent,
     DashboardComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    DynamicTableComponent,
+    DynamicFormComponent
   ],
   imports: [
     BrowserModule,

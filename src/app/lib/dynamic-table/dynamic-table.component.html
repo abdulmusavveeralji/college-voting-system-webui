@@ -1,0 +1,26 @@
+<div class="table-responsive container mt-4">
+    <div class=" d-flex justify-content-between align-items-center">
+        <h2>Voters</h2>
+        <button class="btn btn-primary btn-sm">Add</button>
+    </div>
+    <table class="table table-bordered table-group-divider">
+        <thead class="table-light">
+            <tr>
+                <th *ngFor="let col of column">{{ col.label }}</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr *ngFor="let d of data">
+                <td *ngFor="let row of column">{{ d[row.name] }}</td>
+            
+                <td>
+                    <div class="">
+                        <button class="btn btn-success me-1" (click)="editForm(d)">Edit</button>
+                        <button class="btn btn-danger" (click)="deleteRow(d.id)">Delete</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
