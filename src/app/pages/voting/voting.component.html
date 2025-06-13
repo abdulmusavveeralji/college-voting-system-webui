@@ -15,9 +15,10 @@
           <div class="accordion-body">
             <table class="table table-bordered table-striped-columns">
               <thead class="table-header">
-                <tr *ngFor="let dash of dashbaordData[category]">
+                <tr *ngFor="let dash of dashbaordData[category]" [ngClass]="[getVoter(category, dash) ? 'table-success' : '']">
+                  
                   <td>{{ dash.firstname + ' ' + dash.lastname }}</td>
-                  <th ><button  class="btn btn-sm btn-outline-secondary" (click)="vote(dash)"><i *ngIf="!isVoted(dashbaordData[category])" [ngClass]="[dash.voted ? 'fa-solid fa-check' : 'fa-solid fa-arrow-up']"></i></button></th>
+                  <th *ngIf="!getVoter(category, dash)"><button   class="btn btn-sm btn-outline-secondary" (click)="vote(dash)"><i  [ngClass]="[dash.voted ? 'fa-solid fa-check' : 'fa-solid fa-arrow-up']"></i></button></th>
                 </tr>
               </thead>
             </table>

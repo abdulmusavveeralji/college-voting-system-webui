@@ -13,6 +13,9 @@ export class VotingComponent implements OnInit {
   constructor(private service: CandidateService, private appService: AppServiceService) { }
 
   ngOnInit(): void {
+    this.loadDashboard();
+  }
+  loadDashboard() {
     this.service.getDashboard().subscribe((res: any) => {
       this.dashbaordData = res.reduce((acc: any, cur: any) => {
         acc[cur.category.name] = acc[cur.category.name] || []
@@ -31,13 +34,17 @@ export class VotingComponent implements OnInit {
     row.voted = true;
 
 
-    this.service.voteCandidate({
-      ...row,
-      voters: [{ idNumber: this.appService.getLoggedUserName() }]
-    }).subscribe();
+    this.service.voteCandidate(
+       { idNumber: this.appService.getLoggedUserName() }, row
+    ).subscribe(() => this.loadDashboard());
   }
 
   isVoted(data: any) {
-    return data.some((s: any) => s.voted || (s.voters.length > 0 && s.voters.find((f: any) => f.idNumber === this.appService.getLoggedUserName)))
+    return data.some((s: any) => s.voted)
+  }
+
+  getVoter(category: any, vote: any) {
+    this.dashbaordData[category]
+    return vote.vote.find(((f: any) => f.voter.idNumber === this.appService.getLoggedUserName()))
   }
 }

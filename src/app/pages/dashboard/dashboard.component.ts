@@ -16,8 +16,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.service.getDashboard().subscribe((res: any) => {
       this.dashbaordData = res.reduce((acc: any, cur: any) => {
-        acc[cur.category.name] = acc[cur.category.name] || []
-        acc[cur.category.name] = [...acc[cur.category.name], cur] 
+        acc[cur.category.name] = acc[cur.category.name] || [];
+        acc[cur.category.name] = [...acc[cur.category.name], cur]
         return acc;
       }, {})
     });

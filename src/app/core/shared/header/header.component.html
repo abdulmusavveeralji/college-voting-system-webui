@@ -1,21 +1,30 @@
-<aside class="header">
-  <nav>
-    <ul class="nav-bar">
-      <div class="">
-        <li><a routerLink="/dashboard"><img src="/assets/images/logo.png" alt="AIMCA" width="50" height="50"></a>
-        </li>
-      </div>
+<aside class="header bg-gradient p-3">
+  <nav class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center">
+      <!-- Logo Section -->
+      <a routerLink="/dashboard" class="d-flex align-items-center">
+        <img src="/assets/images/logo.png" alt="AIMCA" width="50" height="50">
+      </a>
 
-      <div class="nav-bar">
-        <li *ngIf="service.isLoggedIn"><a>Welcome: {{ service.getLoggedUserName() }}</a></li>
-        <li *ngIf="service.isLoggedIn"><button (click)="logout()">Logout</button></li>
-        <ng-container *ngIf="!service.isLoggedIn">
-          <li><a routerLink="/voter-login">Voter login</a></li>
-          <li><a routerLink="/login">Login</a></li>
-          <li><a routerLink="/signup">Signup</a></li>
+      <!-- Navigation Bar -->
+      <ul class="nav d-flex align-items-center gap-4 mb-0">
+        <div class="auth-links d-flex align-items-center gap-3">
+          <!-- Logged In User Info -->
+          <li *ngIf="service.isLoggedIn" class="nav-item">
+            <span class="text-light">Welcome: {{ service.getLoggedUserName() }}</span>
+          </li>
+          <li *ngIf="service.isLoggedIn" class="nav-item">
+            <button class="btn btn-danger" (click)="logout()">Logout</button>
+          </li>
 
-        </ng-container>
-      </div>
-    </ul>
+          <!-- Links for Non-Logged In Users -->
+          <ng-container *ngIf="!service.isLoggedIn">
+            <li class="nav-item"><a routerLinkActive="active" routerLink="/voter-login" class="nav-link text-light hover-effect">Voter login</a></li>
+            <li class="nav-item"><a routerLinkActive="active" routerLink="/login" class="nav-link text-light hover-effect">Login</a></li>
+            <li class="nav-item"><a routerLinkActive="active" routerLink="/signup" class="nav-link text-light hover-effect">Signup</a></li>
+          </ng-container>
+        </div>
+      </ul>
+    </div>
   </nav>
 </aside>

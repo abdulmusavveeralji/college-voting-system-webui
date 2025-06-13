@@ -1,8 +1,13 @@
 <div class="app-container">
+  <!-- Header Component -->
   <app-header></app-header>
+
   <div class="main-content-wrapper">
+    <!-- Sidebar Component (only visible when logged in) -->
     <app-side-menu *ngIf="isLoggedIn"></app-side-menu>
-    <main class="content-area content-wapper" [ngClass]="[isLoggedIn ? 'main' : '']" >
+
+    <!-- Main Content Area -->
+    <main class="content-area" [ngClass]="{ 'main': isLoggedIn }">
       <router-outlet></router-outlet>
     </main>
   </div>
